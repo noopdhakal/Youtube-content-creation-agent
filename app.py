@@ -12,8 +12,8 @@ tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
 # Select the Model information
 
-MODEL_INFO = "gemini-2.0-flash"
-MODEL_SCRIPT = "gemini-2.0-flash" # can take different
+MODEL_INFO = "gemini-2.5-flash"
+MODEL_SCRIPT = "gemini-2.5-flash" # can take different
 
 st.set_page_config(
     page_title="YTForge Agent",
@@ -88,8 +88,7 @@ def get_realtime_info(query):
 
             source_info = "\n\n-- \n\n".join(summaries)
         else:
-            st.error(f"Error fetching info :{e}")
-            return None
+            source_info = f"No recent updates found on '{query}'."
         
     except Exception as e:
         st.error(f"❌ Error Fetching info: {e}")
@@ -114,7 +113,7 @@ Output only the refined, human-readable content.
     try:
         model = genai.GenerativeModel(MODEL_INFO)
         response = model.generate_content(prompt)
-        return response.text().strip() if response and response.text else source_info
+        return response.text.strip() if response and response.text else source_info
     except Exception as e:
         st.error(f"❌ Error generating video script: {e}")
         return None
@@ -187,4 +186,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
