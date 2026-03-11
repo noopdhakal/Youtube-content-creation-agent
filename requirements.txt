@@ -3,3 +3,4 @@ python-dotenv
 streamlit
 tavily-python ## real time search information
 # mcp[cli]
+flask
